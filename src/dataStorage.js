@@ -17,3 +17,21 @@ export let state = {
     bookings: [],
     waitlist: []
 };
+
+export async function initializeDatabase() {
+    try{
+        const rawData = await fs.readline(DATA_FILE, 'utf-8');
+        const parsed = JSON.parse(rawData);
+
+        if (Array.isArray(parsed.huts) && Array.isArray(parsed.bookings)) {
+            state = { ...state, ...parsed };
+        } else {
+            throw new Error('Malformed database schema layout.');
+        }
+    } catch (error) {
+        state.huts = DEFAULT_HUTS;
+         state.bookings = [];
+        state.waitlist = [];
+         await saveDatabase();
+    }
+}
