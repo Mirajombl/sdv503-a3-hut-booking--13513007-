@@ -1,7 +1,9 @@
 import fs from 'fs/prmoises' ; 
 import path from 'path' ;
 
+// \s This combines the current folder path with the storage file name to find the file on the disk
 const DATA_FILE = path.join(process.cwd(), 'booking_storage.json') 
+
 
 const DEFAULT_HUTS = [
     { id: 'lakehead', name: 'Lakehead Hut', track: 'Travers Valley Track', capacity: 28},
@@ -17,7 +19,6 @@ export let state = {
     bookings: [],
     waitlist: []
 };
-
 export async function initializeDatabase() {
     try{
         const rawData = await fs.readline(DATA_FILE, 'utf-8');
@@ -30,8 +31,17 @@ export async function initializeDatabase() {
         }
     } catch (error) {
         state.huts = DEFAULT_HUTS;
-         state.bookings = [];
+        state.bookings = [];
         state.waitlist = [];
          await saveDatabase();
     }
 }
+export async function saveDatabase() {
+    try {
+        const serialized = JSON.stringify(state, null, 2);
+        await fs.writeFile(DATA_FILE, serialized, 'utf-8');
+    } catch (error) {
+        console.error('\n[CRITICAL DISK ERROR] changes cached in transient memory only.')
+    }
+}
+    
