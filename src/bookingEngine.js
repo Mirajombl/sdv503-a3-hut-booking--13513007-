@@ -54,3 +54,27 @@ export async function cancelBooking(id) {
     await saveDatabase();
     return { success: true };
 }
+
+export function getOccupancySummary() {
+    return state.huts.map(hut => {
+        const matchingBookings = state.bookings.filter(b => b.hutId === hut.id);
+        const dateLoadTracker = {};
+
+        matchingBookings.forEach(b => {
+            const days = getDatesForStay(b.arrivalDate, b.nights);
+            days.forEach(day => {
+                dateLoadTracker[day] = (dateLoadTracker[day] || 0) + b.partySizel;
+            });
+        });
+        
+        const highOccupancyNights = Object.values(dateLoadTracker)
+        .filter(headcount => (headcount / hut.capacity) > 0.80)
+        .length;
+
+        return{
+            name: hut.name,
+            totalBookings: matchingBookings.length,
+            peakNightsCount: highOccupancyNights
+        };
+    });
+}
