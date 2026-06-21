@@ -42,3 +42,15 @@ export async function createBooking(data) {
     await saveDatabase();
     return { success: true, id: newBooking.id};
 }
+
+export async function cancelBooking(id) {
+    const cleanedId = id.trim().toUpperCase();
+    const index = state.bookings.findIndex(b => b.id === cleanedId);
+
+    if (index === -1) {
+        return { success: false, message: `Cancellation Error: Booking ID '${cleanedId}' was not found.` }
+    }
+    state.bookings.splice(index, 1);
+    await saveDatabase();
+    return { success: true };
+}
