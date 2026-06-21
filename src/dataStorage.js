@@ -1,4 +1,4 @@
-import fs from 'fs/prmoises' ; 
+import fs from 'fs/promises';
 import path from 'path' ;
 
 // \s This combines the current folder path with the storage file name to find the file on the disk

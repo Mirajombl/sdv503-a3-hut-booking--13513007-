@@ -1,4 +1,4 @@
-import { saveDatabase } from "./dataStorage";
+import { state, saveDatabase } from './dataStorage.js';
 
 export function getDatesForStay(arrivalString, nightsCount) {
     const dates = []
@@ -34,11 +34,11 @@ export async function createBooking(data) {
     }  
 
     const newBooking = {
-        id: `BK-${Math.floor(1000 + Math.random() * 9000)}`
+        id: `BK-${Math.floor(1000 + Math.random() * 9000)}`,
         ...data
     };
 
-    state.booking.push(newBooking);
+    state.bookings.push(newBooking);
     await saveDatabase();
     return { success: true, id: newBooking.id};
 }
