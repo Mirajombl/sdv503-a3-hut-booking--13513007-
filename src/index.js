@@ -47,3 +47,24 @@ async function routeSelection(choice) {
                 }
             }
             break;
+        case '2':
+            // Displays remainders for a hut & date
+        case '3':
+            // Handles execution calls for cancellations
+        case '4':
+            // Outputs occupancy summary analytics reports
+        case '5':
+            console.log('\nClosing terminal streams. Secure shutdown routine completed.');
+            rl.close();
+            process.exit(0);
+        default:
+            console.log('\n[INVALID SELECTION] Input a whole integer option between 1 and 5.');
+            break;
+    }
+    await displayMainMenu();
+}
+
+(async () => {
+    await initializeDatabase();
+    await displayMainMenu();
+})();
