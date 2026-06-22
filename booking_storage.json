@@ -37,15 +37,6 @@
       "capacity": 32
     }
   ],
-  "bookings": [
-    {
-      "id": "BK-9721",
-      "name": "Joe",
-      "hutId": "sabine",
-      "arrivalDate": "2026-07-22",
-      "nights": 5,
-      "partySize": 20
-    }
-  ],
+  "bookings": [],
   "waitlist": []
 }
