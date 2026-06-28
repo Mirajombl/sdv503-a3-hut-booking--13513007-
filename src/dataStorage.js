@@ -21,7 +21,7 @@ export let state = {
 };
 export async function initializeDatabase() {
     try{
-        const rawData = await fs.readline(DATA_FILE, 'utf-8');
+        const rawData = await fs.readFile(DATA_FILE, 'utf-8');
         const parsed = JSON.parse(rawData);
 
         if (Array.isArray(parsed.huts) && Array.isArray(parsed.bookings)) {

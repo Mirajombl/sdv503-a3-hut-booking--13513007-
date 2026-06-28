@@ -37,6 +37,15 @@
       "capacity": 32
     }
   ],
-  "bookings": [],
+  "bookings": [
+    {
+      "id": "BK-1705",
+      "name": "joe",
+      "hutId": "sabine",
+      "arrivalDate": "2027-01-01",
+      "nights": 5,
+      "partySize": 5
+    }
+  ],
   "waitlist": []
 }
